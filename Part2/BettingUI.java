@@ -12,19 +12,23 @@ public class BettingUI extends JPanel{
     private JComboBox<String> horseComboBox;
     private JTextField betAmountField;
     private JButton confirmBetButton;
+    private JButton exitButton;  
     private JButton showHistoryButton;
     private JTable oddsTable;
     private JLabel balanceLabel;
     private JTextArea betHistoryArea;
 
-    private List<Horse> horses;
+    private List<Horse> horses; // Save the reference
     private List<BetHistory> betHistory;
     private double userBalance = 100.0;  // Sample user balance
     private BettingOddsCalculator oddsCalculator;
-    private String trackCondition = "Dry"; // Track condition can change dynamically
+    private String trackCondition = "Dry"; 
 
-    public BettingUI(List<Horse> horses) {
+    private HorseRacingSimulation parentSimulation;
+
+    public BettingUI(List<Horse> horses, HorseRacingSimulation parentSimulation) {
         this.horses = horses;  // Use the passed-in horses
+        this.parentSimulation = parentSimulation;
         this.betHistory = new ArrayList<>();
         this.oddsCalculator = new BettingOddsCalculator();
         initialize();
@@ -89,6 +93,16 @@ public class BettingUI extends JPanel{
             }
         });
 
+        exitButton = new JButton("Exit");
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose(); // Close the Betting UI window
+                parentSimulation.returnToMainFrame(); // Call back to HorseRacingSimulation
+            }
+        });
+        
+        buttonPanel.add(exitButton);
         buttonPanel.add(confirmBetButton);
         buttonPanel.add(showHistoryButton);
         frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
