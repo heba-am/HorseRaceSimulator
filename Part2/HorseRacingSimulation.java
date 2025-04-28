@@ -13,11 +13,16 @@ public class HorseRacingSimulation {
     private HorseCustomizationPanel horseCustomizer;
     //private StatsPanel statsPanel;
     
+    public Track getCurrentTrack(){
+        return currentTrack;
+    }
+    
     public HorseRacingSimulation() {
         horses = new ArrayList<>();
         initializeUI();
     }
     
+
     private void initializeUI() {
         // First show track designer
         showTrackDesigner();
@@ -67,10 +72,10 @@ public class HorseRacingSimulation {
         betButton.addActionListener(e -> showBettingUI());
         buttonPanel.add(betButton);
         
-        // Check Stats button
-        //JButton statsButton = new JButton("Check Stats");
-        //statsButton.addActionListener(e -> showStats());
-        //buttonPanel.add(statsButton);
+        //Check Stats button
+        JButton statsButton = new JButton("Check Stats");
+        statsButton.addActionListener(e -> showStats());
+        buttonPanel.add(statsButton);
         
         // Start Race button
         JButton raceButton = new JButton("Start Race");
@@ -166,7 +171,7 @@ public class HorseRacingSimulation {
         bettingFrame.setVisible(true);
     }
     
-    /*private void showStats() {
+    private void showStats() {
         if (horses.isEmpty()) {
             JOptionPane.showMessageDialog(mainFrame, "No horses to show stats for!");
             return;
@@ -188,7 +193,7 @@ public class HorseRacingSimulation {
         statsFrame.add(scrollPane);
         statsFrame.setSize(400, 300);
         statsFrame.setVisible(true);
-    }*/
+    }
     
     private void startRace() {
         if (horses.size() < 2) {
