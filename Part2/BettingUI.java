@@ -22,8 +22,7 @@ public class BettingUI extends JPanel{
     private List<BetHistory> betHistory;
     private double userBalance = 100.0;  // Sample user balance
     private BettingOddsCalculator oddsCalculator;
-    private String trackCondition = "Dry"; 
-
+    private String trackCondition;
     private HorseRacingSimulation parentSimulation;
 
     public BettingUI(List<Horse> horses, HorseRacingSimulation parentSimulation) {
@@ -32,6 +31,8 @@ public class BettingUI extends JPanel{
         this.betHistory = new ArrayList<>();
         this.oddsCalculator = new BettingOddsCalculator();
         initialize();
+	trackCondition = parentSimulation.getCurrentTrack().getCondition();
+
     }
 
     private void initialize() {
