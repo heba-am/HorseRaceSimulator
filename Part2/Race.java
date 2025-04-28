@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Race {
     private int raceLength;
-    private List<Horse> horsesInRace; // Now supports N lanes
+    private List<Horse> horsesInRace; 
     private Track track;
 
     public Race(Track track) {
@@ -33,19 +33,34 @@ public class Race {
 
         boolean finished = false;
         Horse winner = null;
+        int fallenHorses = 0;
 
         while (!finished) {
+            fallenHorses = 0; // Reset fallen count each iteration
+
             // Move all horses
-            horsesInRace.forEach(this::moveHorse);
+            for (Horse horse : horsesInRace) {
+                if (horse == null) {
+                    fallenHorses++;
+                    continue;
+                }
+                
+                if (horse.hasFallen()) {
+                    fallenHorses++;
+                } else {
+                    moveHorse(horse);
+                    if (raceWonBy(horse)) {
+                        winner = horse;
+                        finished = true;
+                    }
+                }
+            }
+
             printRace();
 
-            // Check for winner
-            for (Horse horse : horsesInRace) {
-                if (horse != null && raceWonBy(horse)) {
-                    winner = horse;
-                    finished = true;
-                    break;
-                }
+            if (fallenHorses >= horsesInRace.size()) {
+                System.out.println("All horses have fallen! Race ended with no winner.");
+                return;
             }
 
             try {
@@ -115,7 +130,7 @@ public class Race {
 		return false;
 	}
 
-        if (theHorse.getDistanceTravelled() == raceLength)
+        if (theHorse.getDistanceTravelled() >= raceLength)
         {
             return true;
         }
@@ -179,10 +194,13 @@ public class Race {
         System.out.print('|');
         
         // Display horse name if exists
-        if (horse != null) {
+        if (horse != null && !horse.hasFallen()) {
             System.out.print(" " + horse.getName() + 
                            " (Confidence: " + String.format("%.1f", horse.getConfidence()) + ")");
         }
+    	else if(horse.hasFallen()){
+    	     System.out.print("(Fallen)");
+    	}
     }
         
     
