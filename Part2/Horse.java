@@ -22,8 +22,7 @@ public class Horse {
     private double speed;
     private double stamina;
     
-    // Stats 
-    private HorseStats stats;
+    // Stats
 
     public Horse(String name, String symbol, String breed, String coatColor, 
                 String saddle, String horseshoes, String accessories) {
@@ -40,7 +39,6 @@ public class Horse {
         this.odds = 1.0;
         this.betsPlaced = 0;
         this.totalBetAmount = 0.0;
-        this.stats = new HorseStats(name);
         calculateAttributes();
     }
 
@@ -166,7 +164,7 @@ public class Horse {
     	}
     }
 
-        public void placeBet(double amount) {
+       public void placeBet(double amount) {
         this.betsPlaced++;
         this.totalBetAmount += amount;
         updateOdds();
