@@ -80,8 +80,6 @@ public class HorseRacingSimulation {
         mainFrame.add(buttonPanel, BorderLayout.SOUTH);
         mainFrame.setVisible(true);
     }
-    
-
 
     private void showHorseCustomizer() {
 
@@ -139,6 +137,10 @@ public class HorseRacingSimulation {
         JOptionPane.showMessageDialog(mainFrame, "Horse " + name + " created!");
     
     }
+
+    public void returnToMainFrame() {
+        mainFrame.setVisible(true);  // Show the main racing panel again
+    }
     
     private void showBettingUI() {
         if (horses.isEmpty()) {
@@ -146,7 +148,7 @@ public class HorseRacingSimulation {
             return;
         }
         
-        bettingUI = new BettingUI(horses);
+        bettingUI = new BettingUI(horses, this);
         JFrame bettingFrame = new JFrame("Betting");
         bettingFrame.add(bettingUI);
         bettingFrame.setSize(600, 500);
