@@ -84,6 +84,14 @@ public class HorseRacingSimulation {
 
 
     private void showHorseCustomizer() {
+
+        if (horses.size() >= currentTrack.getLanes()) {
+            JOptionPane.showMessageDialog(mainFrame, 
+                "Cannot add more horses! Track only has " + 
+                currentTrack.getLanes() + " lanes.");
+            return;
+        }
+
         JFrame customizerFrame = new JFrame("Customize Horse");
         horseCustomizer = new HorseCustomizationPanel();
         customizerFrame.add(horseCustomizer, BorderLayout.CENTER);
@@ -108,6 +116,14 @@ public class HorseRacingSimulation {
     }
 
     private void createHorse() {
+
+        if (horses.size() >= currentTrack.getLanes()) {
+            JOptionPane.showMessageDialog(mainFrame,
+                "Maximum number of horses (" + currentTrack.getLanes() + 
+                ") reached for this track!");
+            return;
+        }
+
         String name = horseCustomizer.getHorseName();
         String breed = (String) horseCustomizer.getBreedComboBox().getSelectedItem();
         String color = (String) horseCustomizer.getColorComboBox().getSelectedItem();
