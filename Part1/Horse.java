@@ -22,7 +22,7 @@ public class Horse
     {
 	this.horseName = horseName;
 	this.horseSymbol = horseSymbol;
-	this.horseConfidence = horseConfidence;
+	setConfidence(horseConfidence);
     }
     
     //Other methods of class Horse
@@ -75,7 +75,7 @@ public class Horse
 	else{
 		System.out.println("The confidence rating must be between 0 and 1");      
     	}
-    } 
+    }
     
     public void setSymbol(char newSymbol)
     {
